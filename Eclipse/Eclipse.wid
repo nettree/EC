@@ -1,0 +1,16 @@
+import org.drools.core.process.core.datatype.impl.type.StringDataType;
+[
+  [
+    "name" : "Eclipse",
+    "description" : "Ability to view an java file inside Eclipse",
+    "parameters" : [
+      "url" : new StringDataType()
+    ],
+    "displayName" : "Eclipse",
+    "icon" : "eclipse.jpg",
+    "category" : "IDE",
+    "dependencies" : [
+    ]
+  ]
+
+]
