@@ -116,6 +116,7 @@ public class TSPProblem {
 			Individual individual = population.getBest();
 			if (bestIndividual == null) {
 				bestIndividual = new Individual(individual.getCityList());
+				log.info(bestIndividual.getFitness());
 			} else if (bestIndividual.getFitness() > individual.getFitness()) {
 				bestIndividual = new Individual(individual.getCityList());
 				log.info(bestIndividual.getFitness());
