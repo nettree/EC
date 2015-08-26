@@ -1,5 +1,8 @@
 package ec.master.assignment1;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import ec.master.assignment1.city.City;
 import ec.master.assignment1.model.Configuration;
@@ -99,6 +102,10 @@ public class TSPProblem {
 	 * main logic of the TSP standard algorithm
 	 */
 	public static void operation() {
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
+		Date start = new Date();
+		String startDate = format.format(start);
+		
 		long startTime = System.nanoTime();
 		population = new Population(cityList, pps.getPopSize(), inputFile.getEdgeWeightType(), pps.getElite());
 		for (int i = 0; i < pps.getGenerationsize(); i++) {
@@ -109,15 +116,18 @@ public class TSPProblem {
 			Individual individual = population.getBest();
 			if (bestIndividual == null) {
 				bestIndividual = individual;
+				log.info(bestIndividual.getFitness());
 			} else if (bestIndividual.getFitness() > individual.getFitness()) {
 				bestIndividual = individual;
+				log.info(bestIndividual.getFitness());
 			}
-			log.info(bestIndividual.getFitness());
 		}
 		long endTime = System.nanoTime();
-		
-		System.out.println(endTime);
-		System.out.println(endTime - startTime);
+		Date end = new Date();
+		String endDate = format.format(end);
+		log.info("Start time: " + startDate);
+		log.info("End   time: " + endDate);
+		log.info("Time-consuming: " + (endTime - startTime) / 1000000000 + " second");
 	}
 	
 	public static void printResult() {

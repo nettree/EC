@@ -13,6 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
+import ec.master.assignment1.TSPProblem;
 import ec.master.assignment1.city.City;
 import ec.master.assignment1.model.Individual;
 import ec.master.assignment1.model.InputFile;
@@ -27,7 +28,7 @@ public class Printer {
 	public static void printResult(InputFile inputFile, Individual individual, String url) {
 		String filename = inputFile.getName()+ ".opt.tour";
 		String filePath = url + filename;
-		System.out.println(filePath);
+		TSPProblem.log.info("Output File: " + filePath);
 		File file = new File(filePath);
 		List<City> cityList = individual.getCityList();
 		FileWriter writter = null;
