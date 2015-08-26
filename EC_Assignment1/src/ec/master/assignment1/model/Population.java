@@ -1,5 +1,6 @@
 package ec.master.assignment1.model;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -22,6 +23,8 @@ public class Population {
 
 	ArrayList<Individual> individuals = new ArrayList<Individual>();
 	String dataType;
+	List<Individual> test = new ArrayList<Individual>();
+	boolean elite = false;
 
 	public Population(ArrayList<City> cityList, int popSize, String dataType) {
 		this.dataType = dataType;
@@ -58,18 +61,35 @@ public class Population {
 	}
 	
 	public void crossover(String crossoverType, double p) {
+		
+		Random rand = new Random();
+		elite = false;
+		if(rand.nextDouble() <= 0.9){
+			Collections.sort(individuals);
+			test.add(individuals.get(0));
+//			individuals.remove(0);
+			Collections.shuffle(individuals);
+			elite = true;
+		}
+		
 		CrossoverFactory cFactory = new CrossoverFactory();
 		Crossover crossover = cFactory.createCrossover(crossoverType);
 		ArrayList<Children> childrenList = new ArrayList<Children>();
-		Random rand = new Random();
-		for (int i = 0; i < individuals.size() - 1; i += 2) {
-			int randA = rand.nextInt(individuals.size() - 1);
-			int randB = rand.nextInt(individuals.size() - 1);
+		for (int i = 0; i < individuals.size() - 1; i ++) {
+//			int randA = rand.nextInt(individuals.size() - 1);
+//			int randB = rand.nextInt(individuals.size() - 1);
+			SelectorFactory sFactory = new SelectorFactory();
+			Selector selector = sFactory.createSelector("tournament");
+			ArrayList<Individual> pa = new ArrayList<Individual>(selector.doSelection(individuals, 10, 1));
+			ArrayList<Individual> pb = new ArrayList<Individual>(selector.doSelection(individuals, 10, 1));
 			if (rand.nextDouble() < p) {
-				Children child = crossover.doCrossover(individuals.get(randA), individuals.get(randB));
+				
+				Children child = crossover.doCrossover(pa.get(0), pb.get(0));
+//				Children child = crossover.doCrossover(individuals.get(randA), individuals.get(randB));
 				childrenList.add(child);
 			} else {
-				Children child = new Children(individuals.get(randA), individuals.get(randB));
+				Children child = new Children(pa.get(0),pb.get(0));
+//				Children child = new Children(individuals.get(randA), individuals.get(randB));
 				childrenList.add(child);
 			}
 		}
@@ -87,7 +107,13 @@ public class Population {
 	public void select(String selectionType, int popSize){
 		SelectorFactory sFactory = new SelectorFactory();
 		Selector selector = sFactory.createSelector(selectionType);
-		individuals = selector.doSelection(individuals, 5, popSize);
+		if(elite){
+			individuals = selector.doSelection(individuals, 10, popSize-1);
+		}else{
+			individuals = selector.doSelection(individuals, 10, popSize);
+		}
+		individuals.addAll(test);
+		test.clear();
 //		Collections.sort(individuals);
 //		return individuals.get(0).getFitness();
 	}
