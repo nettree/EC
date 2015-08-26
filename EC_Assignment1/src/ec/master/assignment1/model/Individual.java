@@ -67,6 +67,10 @@ public class Individual implements Comparable<Individual>{
 	public List<City> getCityList() {
 		return cityList;
 	}
+	
+	public void setCityList(List<City> cityList) {
+		this.cityList = cityList;
+	}
 
 	public String toString() {
 		StringBuffer sb = new StringBuffer();
@@ -84,5 +88,5 @@ public class Individual implements Comparable<Individual>{
 	public int compareTo(Individual other) {
 		return Integer.compare(this.getFitness(), other.getFitness());
 	}
-
+	
 }

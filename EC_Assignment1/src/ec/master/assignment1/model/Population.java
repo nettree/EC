@@ -141,4 +141,8 @@ public class Population {
 	public List<Individual> getIndividuals(){
 		return individuals;
 	}
+	
+	public void setIndividuals(List<Individual> individuals) {
+		this.individuals = individuals;
+	}
 }
