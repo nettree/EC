@@ -16,7 +16,7 @@ import ec.master.assignment1.model.Individual;
  */
 public class OrderCrossover implements Crossover{
 	
-	public Children doCrossover(Individual fParent, Individual sParent, String dataType){
+	public Children doCrossover(Individual fParent, Individual sParent){
 		Random random = new Random();
 		int a = random.nextInt(fParent.getSize());
 		int b = random.nextInt(fParent.getSize()-1);

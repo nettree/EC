@@ -1,6 +1,5 @@
 package ec.master.assignment1.model;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -40,14 +39,16 @@ public class Population {
 			TSPProblem.log.errorException("java.lang.NullPointerException");
 			return;
 		}
-		
+		Random rand = new Random();
 		for (Individual individual : individuals) {
 //			Individual clone = new Individual(individual.getCityList(), true);
 //			indis.add(clone);
-			TSPProblem.log.debug(individual.toString());
-			mutator.doMutate(individual);
-			TSPProblem.log.debug(individual.toString());
-			individual.updateFitness();
+//			TSPProblem.log.debug(individual.toString());
+			if (rand.nextDouble() < p) {
+				mutator.doMutate(individual);
+	//			TSPProblem.log.debug(individual.toString());
+				individual.updateFitness();
+			}
 //			TSPProblem.log.debug(clone.toString());
 		}
 //		for (Individual individual: indis) {
@@ -61,12 +62,14 @@ public class Population {
 		Crossover crossover = cFactory.createCrossover(crossoverType);
 		ArrayList<Children> childrenList = new ArrayList<Children>();
 		Random rand = new Random();
-		for (int i = 0; i < individuals.size() - 1; i+=2) {
+		for (int i = 0; i < individuals.size() - 1; i += 2) {
+			int randA = rand.nextInt(individuals.size() - 1);
+			int randB = rand.nextInt(individuals.size() - 1);
 			if (rand.nextDouble() < p) {
-				Children child = crossover.doCrossover(individuals.get(i), individuals.get(i + 1), dataType);
+				Children child = crossover.doCrossover(individuals.get(randA), individuals.get(randB));
 				childrenList.add(child);
 			} else {
-				Children child = new Children(individuals.get(i), individuals.get(i + 1));
+				Children child = new Children(individuals.get(randA), individuals.get(randB));
 				childrenList.add(child);
 			}
 		}
@@ -81,21 +84,27 @@ public class Population {
 //		System.out.println(individuals.size());
 	}
 	
-	public int select(String selectionType, int popSize){
+	public void select(String selectionType, int popSize){
 		SelectorFactory sFactory = new SelectorFactory();
 		Selector selector = sFactory.createSelector(selectionType);
-		// temporary size
 		individuals = selector.doSelection(individuals, 5, popSize);
-//		TSPProblem.log.debug("Result:");
-//		int best = individuals.get(0).getFitness();
-//		for (int i = 1; i < individuals.size(); i++) {
-//			int fitness = individuals.ge0-----t(i).getFitness();
-//			if (best > fitness) {
-//				best = fitness;
-//			}
-//		}
-		Collections.sort(individuals);
-		return individuals.get(0).getFitness();
+//		Collections.sort(individuals);
+//		return individuals.get(0).getFitness();
+	}
+	
+	public Individual getBest() {
+		int best = -1;
+		Individual bestIndividual = null;
+		for (Individual individual : individuals) {
+			if (best == -1) {
+				best = individual.getFitness();
+				bestIndividual = individual;
+			} else if (best > individual.getFitness()) {
+				best = individual.getFitness();
+				bestIndividual = individual;
+			}
+		}
+		return bestIndividual;
 	}
 	
 	public List<Individual> getIndividuals(){

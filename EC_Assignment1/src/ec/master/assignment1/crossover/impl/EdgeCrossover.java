@@ -31,7 +31,7 @@ import ec.master.assignment1.model.Individual;
  */
 public class EdgeCrossover implements Crossover {
 
-	public Children doCrossover(Individual parentA, Individual parentB, String dataType) {
+	public Children doCrossover(Individual parentA, Individual parentB) {
 		int size = parentA.getSize();
 		ArrayList<City> cityListA = parentA.getCityList();
 		ArrayList<City> cityListB = parentB.getCityList();

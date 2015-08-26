@@ -3,11 +3,13 @@ import java.util.ArrayList;
 
 import ec.master.assignment1.city.City;
 import ec.master.assignment1.model.Configuration;
+import ec.master.assignment1.model.Individual;
 import ec.master.assignment1.model.InputFile;
 import ec.master.assignment1.model.Population;
 import ec.master.assignment1.tools.FileOperator;
 import ec.master.assignment1.tools.FileScanner;
 import ec.master.assignment1.tools.Logger;
+import ec.master.assignment1.tools.Printer;
 
 /**
  * @ClassName: TSPProblem
@@ -17,11 +19,11 @@ import ec.master.assignment1.tools.Logger;
  */
 public class TSPProblem {
 	
-	public static String localPath = TSPProblem.class.getClassLoader()
-			.getResource("").getPath().replace("%20", " ") + "ec/master/assignment1/";
-	public static String TEST_PATH = "input/";
-	public static String CONFIG_PATH = "configuration/";
-	public static String CONFIG = localPath + CONFIG_PATH + "configure.properties";
+	public static String localPath = TSPProblem.class.getClassLoader().getResource("").getPath().replace("%20", " ") + "ec/master/assignment1/";
+	public static String INPUT_PATH = localPath + "input/";
+	public static String OUTPUT_PATH = localPath + "output/";
+	public static String CONFIG_PATH = localPath + "configuration/";
+	public static String CONFIG = CONFIG_PATH + "configure.properties";
 	
 	public static Logger log = Logger.getInstance();
 	public static Configuration pps;
@@ -29,6 +31,7 @@ public class TSPProblem {
 	protected static InputFile inputFile;
 	protected static ArrayList<City> cityList;
 	protected static Population population;
+	protected static Individual bestIndividual;
 
 	/**
 	 * @Title: main
@@ -43,7 +46,7 @@ public class TSPProblem {
 			System.exit(0);
 		}
 		operation();
-				
+		printResult();
 	}
 	
 	/**
@@ -84,7 +87,7 @@ public class TSPProblem {
 	 * @return read success or fail
 	 */
 	public static boolean readInputFile() {
-		String file = localPath + TEST_PATH + pps.getFileName();
+		String file = INPUT_PATH + pps.getFileName();
 		// create inputfile instance to represent the tsp file
 		inputFile = new InputFile();
 		// get cityList by using configure.properties and tsp file scanner
@@ -98,20 +101,14 @@ public class TSPProblem {
 	public static void operation() {
 		long startTime = System.nanoTime();
 		int best = -1;
-		// initial the populations by using the population size
 		population = new Population(cityList, pps.getPopSize(), inputFile.getEdgeWeightType());
-		for (int i = 0; i < 1000000; i++) {
-//			population.select(pps.getSelection(), pps.getPopSize());
+		for (int i = 0; i < pps.getGenerationsize(); i++) {
 			population.crossover(pps.getCrossover(), 0.75);
-			population.mutate(pps.getMutation(), 0.2);
-//			population.select(pps.getSelection(), pps.getPopSize());
+			population.mutate(pps.getMutation(), 0.8);
 			
-//			population.select(pps.getSelection(), pps.getPopSize());
-//			population.crossover(pps.getCrossover(), 0.75);
-//			population.mutate(pps.getMutation(), 0.2);
-//			population.select(pps.getSelection(), pps.getPopSize());
-			
-			int temp = population.select(pps.getSelection(), pps.getPopSize());
+			population.select(pps.getSelection(), pps.getPopSize());
+			bestIndividual = population.getBest();
+			int temp = bestIndividual.getFitness();
 			if (best == -1) {
 				best = temp;
 				System.out.println(best);
@@ -125,5 +122,9 @@ public class TSPProblem {
 		
 		System.out.println(endTime);
 		System.out.println(endTime - startTime);
+	}
+	
+	public static void printResult() {
+		Printer.printResult(inputFile, bestIndividual, OUTPUT_PATH);
 	}
 }

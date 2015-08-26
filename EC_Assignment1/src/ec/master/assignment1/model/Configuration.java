@@ -22,6 +22,7 @@ public class Configuration {
 	String crossover;
 	String selection;
 	int popSize;
+	int generationsize;
 	
 	public String getSelection() {
 		return selection;
@@ -58,6 +59,12 @@ public class Configuration {
 	}
 	public void setCrossover(String crossover) {
 		this.crossover = crossover;
+	}
+	public int getGenerationsize() {
+		return generationsize;
+	}
+	public void setGenerationsize(int generationsize) {
+		this.generationsize = generationsize;
 	}
 
 }

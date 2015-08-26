@@ -16,7 +16,7 @@ import ec.master.assignment1.model.Individual;
  */
 public class PMXCrossover implements Crossover{
 	
-	public Children doCrossover(Individual fParent, Individual sParent, String dataType){
+	public Children doCrossover(Individual fParent, Individual sParent){
 		Random random = new Random();
 		//randomly choose two points
 		int a = random.nextInt(fParent.getSize());

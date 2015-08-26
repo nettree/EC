@@ -42,6 +42,8 @@ public class FileOperator {
 			config.setSelection(selection);
 			String popSize = pps.getProperty("popsize");
 			config.setPopSize(Integer.valueOf(popSize));
+			String generationsize = pps.getProperty("generationsize");
+			config.setGenerationsize(Integer.valueOf(generationsize));
 			return config;
 		} catch (IOException e) {
 			e.printStackTrace();

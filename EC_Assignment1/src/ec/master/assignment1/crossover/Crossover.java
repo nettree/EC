@@ -18,5 +18,5 @@ import ec.master.assignment1.model.Individual;
  * 
  */
 public interface Crossover {
-	public Children doCrossover(Individual a, Individual b, String dataType);
+	public Children doCrossover(Individual fParent, Individual sParent);
 }
