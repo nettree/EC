@@ -24,18 +24,19 @@ public class InversionMutator implements Mutator {
 
 	public Individual doMutate(Individual individual) {
 		Random random = new Random();
-		//randomly choose two points
+		// randomly choose two points
 		int a = random.nextInt(individual.getSize());
 		int b = random.nextInt(individual.getSize());
-		if(a==b){
+		if (a == b) {
 			b++;
 		}
 		int max = Math.max(a, b);
 		int min = Math.min(a, b);
-		int compare = ((max+min)+1)/2;
-		for(int i=min;i<compare;i++){
-			Collections.swap(individual.getCityList(), i, max);
-			max--;
+//		int compare = ((max + min) + 1) / 2;
+		int compare = (max - min) / 2;
+		for (int i = 0; i < compare; i++) {
+			Collections.swap(individual.getCityList(), min++, max--);
+//			max--;
 		}
 		return individual;
 	}

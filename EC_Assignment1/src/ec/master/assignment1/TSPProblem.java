@@ -31,7 +31,7 @@ public class TSPProblem {
 	protected static InputFile inputFile;
 	protected static ArrayList<City> cityList;
 	protected static Population population;
-	protected static Individual bestIndividual;
+	protected static Individual bestIndividual = null;
 
 	/**
 	 * @Title: main
@@ -100,23 +100,19 @@ public class TSPProblem {
 	 */
 	public static void operation() {
 		long startTime = System.nanoTime();
-		int best = -1;
 		population = new Population(cityList, pps.getPopSize(), inputFile.getEdgeWeightType(), pps.getElite());
 		for (int i = 0; i < pps.getGenerationsize(); i++) {
 			population.crossover(pps.getCrossover(), 0.75);
 			population.mutate(pps.getMutation(), 0.2);
 			
 			population.select(pps.getSelection(), pps.getPopSize());
-			bestIndividual = population.getBest();
-			int temp = bestIndividual.getFitness();
-			if (best == -1) {
-				best = temp;
-				System.out.println(best);
-			} else if (best > temp) {
-				best = temp;
-				System.out.println(best);
+			Individual individual = population.getBest();
+			if (bestIndividual == null) {
+				bestIndividual = individual;
+			} else if (bestIndividual.getFitness() > individual.getFitness()) {
+				bestIndividual = individual;
 			}
-			
+			log.info(bestIndividual.getFitness());
 		}
 		long endTime = System.nanoTime();
 		

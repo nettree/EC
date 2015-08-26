@@ -8,6 +8,8 @@
 */
 package ec.master.assignment1.mutation.factory;
 
+import java.util.Random;
+
 import ec.master.assignment1.mutation.Mutator;
 import ec.master.assignment1.mutation.impl.InsertMutator;
 import ec.master.assignment1.mutation.impl.InversionMutator;
@@ -21,17 +23,35 @@ import ec.master.assignment1.mutation.impl.SwapMutator;
  * 
  */
 public class MutatorFactory {
+	private final String[] mutators = new String[] { "insert", "swap", "inversion", "scramble" };
 	public Mutator createMutator(String type) {
-		if ("insert".equalsIgnoreCase(type)) {
-			return new InsertMutator();
-		} else if ("swap".equalsIgnoreCase(type)) {
-			return new SwapMutator();
-		} else if ("inversion".equalsIgnoreCase(type)) {
-			return new InversionMutator();
-		} else if ("scramble".equalsIgnoreCase(type)) {
-			return new ScrambleMutator();
+		if (mutators[0].equalsIgnoreCase(type)) {
+			return chooseMutator(0);
+		} else if (mutators[1].equalsIgnoreCase(type)) {
+			return chooseMutator(1);
+		} else if (mutators[2].equalsIgnoreCase(type)) {
+			return chooseMutator(2);
+		} else if (mutators[3].equalsIgnoreCase(type)) {
+			return chooseMutator(3);
+		} else if ("random".equalsIgnoreCase(type)) {
+			Random rand = new Random();
+			return chooseMutator(rand.nextInt(mutators.length));
 		} else {
-			return new SwapMutator();
+			return chooseMutator(0);
 		}
+	}
+	
+	private Mutator chooseMutator(int type) {
+		switch(type) {
+		case 0:
+			return new InsertMutator();
+		case 1:
+			return new SwapMutator();
+		case 2:
+			return new InversionMutator();
+		case 3:
+			return new ScrambleMutator();
+		}
+		return null;
 	}
 }
