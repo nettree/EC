@@ -102,8 +102,8 @@ public class TSPProblem {
 		population = new Population(cityList, pps.getPopSize(), inputFile.getEdgeWeightType());
 		for (int i = 0; i < 1000000; i++) {
 //			population.select(pps.getSelection(), pps.getPopSize());
-//			population.crossover(pps.getCrossover(), 0.80);
-			population.mutate(pps.getMutation(), 0.01);
+			population.crossover(pps.getCrossover(), 0.75);
+			population.mutate(pps.getMutation(), 0.2);
 //			population.select(pps.getSelection(), pps.getPopSize());
 			
 //			population.select(pps.getSelection(), pps.getPopSize());
