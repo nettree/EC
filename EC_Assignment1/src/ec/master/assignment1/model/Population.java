@@ -12,11 +12,14 @@ import ec.master.assignment1.mutation.factory.MutatorFactory;
 import ec.master.assignment1.selection.Selector;
 import ec.master.assignment1.selection.factory.SelectorFactory;
 
+
 /**
- * @ClassName: Population
- * @Description: TODO
- * @date 15/08/2015 3:25:15 pm
  * 
+* @ClassName: Population
+* @Description: The population in an evolutionary algorithms represents a set of solutions
+* @author David Fa
+* @date 26/08/2015 10:20:53 pm
+*
  */
 public class Population {
 
@@ -35,8 +38,15 @@ public class Population {
 		}
 	}
 	
+	/**
+	* @Title: mutate
+	* @Description: To implement mutation operation
+	* @param mutatorType
+	* @param p    
+	* @return void   
+	* @throws
+	 */
 	public void mutate(String mutatorType, double p) {
-//		ArrayList<Individual> indis = new ArrayList<Individual>();
 		MutatorFactory mFactory = new MutatorFactory();
 		Mutator mutator = mFactory.createMutator(mutatorType);
 		if (mutator == null) {
@@ -45,34 +55,29 @@ public class Population {
 		}
 		Random rand = new Random();
 		for (Individual individual : individuals) {
-//			Individual clone = new Individual(individual.getCityList(), true);
-//			indis.add(clone);
-//			TSPProblem.log.debug(individual.toString());
 			if (rand.nextDouble() < p) {
 				mutator.doMutate(individual);
-	//			TSPProblem.log.debug(individual.toString());
 				individual.updateFitness();
 			}
-//			TSPProblem.log.debug(clone.toString());
 		}
-//		for (Individual individual: indis) {
-//			individuals.add(individual);
-//		}
-//		System.out.println(individuals.size());
 	}
 	
+	/**
+	 * 
+	* @Title: crossover
+	* @Description: To implement crossover operation
+	* @param crossoverType
+	* @param p    
+	* @return void   
+	* @throws
+	 */
 	public void crossover(String crossoverType, double p) {
 		
 		Random rand = new Random();
 		
 		if (elite) {
 			if (rand.nextDouble() <= 0.8) {
-				// Collections.sort(individuals);
 				lastBest = new Individual(getBest().getCityList());
-//				bestList.add(individual);
-				// individuals.remove(0);
-				// Collections.shuffle(individuals);
-//				selected = true;
 			}
 		}
 		
@@ -106,9 +111,17 @@ public class Population {
 			if (indiB != null)
 				individuals.add(indiB);
 		}
-//		System.out.println(individuals.size());
 	}
 	
+	/**
+	 * 
+	* @Title: select
+	* @Description: To implement select operation
+	* @param @param selectionType
+	* @param @param popSize    
+	* @return void   
+	* @throws
+	 */
 	public void select(String selectionType, int popSize){
 		SelectorFactory sFactory = new SelectorFactory();
 		Selector selector = sFactory.createSelector(selectionType);
@@ -124,6 +137,14 @@ public class Population {
 //		return individuals.get(0).getFitness();
 	}
 	
+	/**
+	 * 
+	* @Title: getBest
+	* @Description: To loop the set of individual array to gain the best individual
+	* @param @return    
+	* @return Individual   
+	* @throws
+	 */
 	public Individual getBest() {
 		int best = -1;
 		Individual bestIndividual = null;

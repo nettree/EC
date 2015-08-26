@@ -16,7 +16,7 @@ import ec.master.assignment1.tools.Printer;
 
 /**
  * @ClassName: TSPProblem
- * @Description: TODO
+ * @Description: The TSPProblem class represents the TSP problem
  * @date 14/08/2015 10:26:06 pm
  * 
  */
@@ -53,9 +53,11 @@ public class TSPProblem {
 	}
 	
 	/**
-	 * initialization read configurations from configure.properties
-	 * and tsp file assigned in configure file
-	 * @return
+	* @Title: init
+	* @Description: initialization read configurations from configure.properties
+	* and tsp file assigned in configure file
+	* @return boolean   
+	* @throws
 	 */
 	public static boolean init() {
 		if (!readConfigFile()) {
@@ -70,9 +72,10 @@ public class TSPProblem {
 	}
 	
 	/**
-	 * read configuration file and assign it to Configuration object
-	 * defined
-	 * @return read success or fail
+	* @Title: readConfigFile
+	* @Description: read configuration file and assign it to Configuration object defined
+	* @return boolean   
+	* @throws
 	 */
 	public static boolean readConfigFile() {
 		pps = FileOperator.readConfiguration(CONFIG);
@@ -83,11 +86,13 @@ public class TSPProblem {
 		}
 		return true;
 	}
+	
 	/**
-	 * read citylist from tsp file, from which tsp file was configured 
-	 * in configure.properties file
-	 * 
-	 * @return read success or fail
+	* @Title: readInputFile
+	* @Description: read citylist from tsp file, from which tsp file was  
+	* configured in configure.properties file
+	* @return boolean   
+	* @throws
 	 */
 	public static boolean readInputFile() {
 		String file = INPUT_PATH + pps.getFileName();
@@ -99,7 +104,11 @@ public class TSPProblem {
 	}
 	
 	/**
-	 * main logic of the TSP standard algorithm
+	* @Title: operation
+	* @Description: main logic of the TSP standard algorithm
+	* @param     
+	* @return void   
+	* @throws
 	 */
 	public static void operation() {
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss:SSS");
@@ -130,6 +139,14 @@ public class TSPProblem {
 		log.info("Time-consuming: " + (endTime - startTime) / 1000000000 + " second");
 	}
 	
+	/**
+	 * 
+	* @Title: printResult
+	* @Description: the method which prints the result in the output file
+	* @param     
+	* @return void   
+	* @throws
+	 */
 	public static void printResult() {
 		Printer.printResult(inputFile, bestIndividual, OUTPUT_PATH);
 	}
