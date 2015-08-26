@@ -25,6 +25,7 @@ public class Population {
 	String dataType;
 	List<Individual> test = new ArrayList<Individual>();
 	boolean elite = false;
+	boolean selected = false;
 
 	public Population(List<City> cityList, int popSize, String dataType, boolean elite) {
 		this.dataType = dataType;
@@ -64,14 +65,17 @@ public class Population {
 	public void crossover(String crossoverType, double p) {
 		
 		Random rand = new Random();
-		elite = false;
-		if(rand.nextDouble() <= 0.9){
-			Collections.sort(individuals);
-			test.add(individuals.get(0));
-//			individuals.remove(0);
-			Collections.shuffle(individuals);
-			elite = true;
+		
+		if(elite){
+			if(rand.nextDouble() <= 0.8){
+				Collections.sort(individuals);
+				test.add(individuals.get(0));
+//				individuals.remove(0);
+				Collections.shuffle(individuals);
+				selected = true;
+			}
 		}
+		
 		
 		CrossoverFactory cFactory = new CrossoverFactory();
 		Crossover crossover = cFactory.createCrossover(crossoverType);
@@ -108,7 +112,7 @@ public class Population {
 	public void select(String selectionType, int popSize){
 		SelectorFactory sFactory = new SelectorFactory();
 		Selector selector = sFactory.createSelector(selectionType);
-		if(elite){
+		if(selected){
 			individuals = selector.doSelection(individuals, 10, popSize-1);
 		}else{
 			individuals = selector.doSelection(individuals, 10, popSize);

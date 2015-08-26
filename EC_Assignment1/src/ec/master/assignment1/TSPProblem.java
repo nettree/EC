@@ -104,7 +104,7 @@ public class TSPProblem {
 		population = new Population(cityList, pps.getPopSize(), inputFile.getEdgeWeightType(), pps.getElite());
 		for (int i = 0; i < pps.getGenerationsize(); i++) {
 			population.crossover(pps.getCrossover(), 0.75);
-			population.mutate(pps.getMutation(), 0.8);
+			population.mutate(pps.getMutation(), 0.2);
 			
 			population.select(pps.getSelection(), pps.getPopSize());
 			bestIndividual = population.getBest();
