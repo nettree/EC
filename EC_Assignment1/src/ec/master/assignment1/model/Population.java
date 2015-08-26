@@ -1,6 +1,5 @@
 package ec.master.assignment1.model;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -23,7 +22,7 @@ public class Population {
 
 	List<Individual> individuals = new ArrayList<Individual>();
 	String dataType;
-	List<Individual> test = new ArrayList<Individual>();
+	Individual lastBest = null;
 	boolean elite = false;
 	boolean selected = false;
 
@@ -66,13 +65,14 @@ public class Population {
 		
 		Random rand = new Random();
 		
-		if(elite){
-			if(rand.nextDouble() <= 0.8){
-				Collections.sort(individuals);
-				test.add(individuals.get(0));
-//				individuals.remove(0);
-				Collections.shuffle(individuals);
-				selected = true;
+		if (elite) {
+			if (rand.nextDouble() <= 0.8) {
+				// Collections.sort(individuals);
+				lastBest = new Individual(getBest().getCityList());
+//				bestList.add(individual);
+				// individuals.remove(0);
+				// Collections.shuffle(individuals);
+//				selected = true;
 			}
 		}
 		
@@ -112,13 +112,14 @@ public class Population {
 	public void select(String selectionType, int popSize){
 		SelectorFactory sFactory = new SelectorFactory();
 		Selector selector = sFactory.createSelector(selectionType);
-		if(selected){
-			individuals = selector.doSelection(individuals, 10, popSize-1);
-		}else{
+		if (elite) {
+			individuals = selector.doSelection(individuals, 10, popSize - 1);
+			individuals.add(lastBest);
+		} else {
 			individuals = selector.doSelection(individuals, 10, popSize);
 		}
-		individuals.addAll(test);
-		test.clear();
+		individuals.add(lastBest);
+//		bestList.clear();
 //		Collections.sort(individuals);
 //		return individuals.get(0).getFitness();
 	}
