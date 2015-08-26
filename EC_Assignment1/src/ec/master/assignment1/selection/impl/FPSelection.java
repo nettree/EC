@@ -1,6 +1,7 @@
 package ec.master.assignment1.selection.impl;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 import ec.master.assignment1.model.Individual;
@@ -8,7 +9,7 @@ import ec.master.assignment1.selection.Selector;
 
 public class FPSelection implements Selector {
 	
-	public ArrayList<Individual> doSelection(ArrayList<Individual> individuals, int groupSize, int resultSize) {
+	public List<Individual> doSelection(List<Individual> individuals, int groupSize, int resultSize) {
 		Collections.shuffle(individuals);
 		ArrayList<Individual> selectedIndividuals = new ArrayList<Individual>(resultSize);
 		double sum = 0;

@@ -10,6 +10,7 @@ package ec.master.assignment1.model;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import ec.master.assignment1.city.City;
 
@@ -21,10 +22,10 @@ import ec.master.assignment1.city.City;
  */
 public class Individual implements Comparable<Individual>{
 
-	private ArrayList<City> cityList;
+	private List<City> cityList;
 	private int fitness;
 	
-	public Individual(ArrayList<City> citys, boolean shuffle) {
+	public Individual(List<City> citys, boolean shuffle) {
 		cityList = new ArrayList<City>(citys);
 		if (shuffle) {
 			shuffle();
@@ -33,7 +34,7 @@ public class Individual implements Comparable<Individual>{
 		}
 	}
 	
-	public Individual(ArrayList<City> citys) {
+	public Individual(List<City> citys) {
 		cityList = new ArrayList<City>(citys);
 		updateFitness();
 	}
@@ -63,7 +64,7 @@ public class Individual implements Comparable<Individual>{
 		return cityList.size();
 	}
 
-	public ArrayList<City> getCityList() {
+	public List<City> getCityList() {
 		return cityList;
 	}
 

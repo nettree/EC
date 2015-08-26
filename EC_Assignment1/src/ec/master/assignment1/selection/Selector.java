@@ -8,7 +8,7 @@
 */
 package ec.master.assignment1.selection;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import ec.master.assignment1.model.Individual;
 
@@ -20,5 +20,5 @@ import ec.master.assignment1.model.Individual;
  * 
  */
 public interface Selector {
-	public ArrayList<Individual> doSelection(ArrayList<Individual> individuals, int groupSize, int resultSize);
+	public List<Individual> doSelection(List<Individual> individuals, int groupSize, int resultSize);
 }

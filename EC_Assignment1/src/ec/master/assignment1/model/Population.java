@@ -21,12 +21,12 @@ import ec.master.assignment1.selection.factory.SelectorFactory;
  */
 public class Population {
 
-	ArrayList<Individual> individuals = new ArrayList<Individual>();
+	List<Individual> individuals = new ArrayList<Individual>();
 	String dataType;
 	List<Individual> test = new ArrayList<Individual>();
 	boolean elite = false;
 
-	public Population(ArrayList<City> cityList, int popSize, String dataType) {
+	public Population(List<City> cityList, int popSize, String dataType) {
 		this.dataType = dataType;
 		for (int i = 0; i < popSize; i++) {
 			Individual individual = new Individual(cityList, true);

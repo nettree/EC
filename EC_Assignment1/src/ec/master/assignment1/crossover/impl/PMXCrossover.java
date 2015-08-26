@@ -1,7 +1,7 @@
 package ec.master.assignment1.crossover.impl;
 
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 import ec.master.assignment1.city.City;
@@ -28,8 +28,8 @@ public class PMXCrossover implements Crossover{
 		int min = Math.min(a, b);
 		
 		//initiate two children
-		ArrayList<City> fChild = sParent.getCityList();
-		ArrayList<City> sChild = fParent.getCityList();
+		List<City> fChild = sParent.getCityList();
+		List<City> sChild = fParent.getCityList();
 		int sIndex = 0;
 		int fIndex = 0;
 		

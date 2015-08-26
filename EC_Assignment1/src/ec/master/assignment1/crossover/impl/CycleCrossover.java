@@ -27,8 +27,8 @@ public class CycleCrossover implements Crossover {
 
 	public Children doCrossover(Individual parentA, Individual parentB) {
 		// TODO Auto-generated method stub
-		ArrayList<City> cityListA = parentA.getCityList();
-		ArrayList<City> cityListB = parentB.getCityList();
+		List<City> cityListA = parentA.getCityList();
+		List<City> cityListB = parentB.getCityList();
 //		System.out.println(parentA.toString());
 //		System.out.println(parentB.toString());
 		int size = cityListA.size();
@@ -46,8 +46,8 @@ public class CycleCrossover implements Crossover {
 				index = cityListA.indexOf(cityListB.get(index));
 			}
 		}
-		ArrayList<City> childListA = cityListB;
-		ArrayList<City> childListB = cityListA;
+		List<City> childListA = cityListB;
+		List<City> childListB = cityListA;
 		for (int i = 0; i < list.size(); i++) {
 			City cityTemp = childListA.get(list.get(i));
 			childListA.set(list.get(i), childListB.get(list.get(i)));

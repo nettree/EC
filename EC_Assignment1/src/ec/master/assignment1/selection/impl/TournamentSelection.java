@@ -2,6 +2,7 @@ package ec.master.assignment1.selection.impl;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 
 import ec.master.assignment1.model.Individual;
@@ -9,9 +10,9 @@ import ec.master.assignment1.selection.Selector;
 
 public class TournamentSelection implements Selector {
 
-	public ArrayList<Individual> doSelection(ArrayList<Individual> inds, int groupSize, int resultSize) {
-		ArrayList<Individual> selected = new ArrayList<Individual>();
-		ArrayList<Individual> compared = new ArrayList<Individual>(groupSize);
+	public List<Individual> doSelection(List<Individual> inds, int groupSize, int resultSize) {
+		List<Individual> selected = new ArrayList<Individual>();
+		List<Individual> compared = new ArrayList<Individual>(groupSize);
 
 		// Collections.shuffle(inds);
 
@@ -38,7 +39,7 @@ public class TournamentSelection implements Selector {
 			}
 
 			Collections.sort(compared);
-			if (random.nextDouble() <= 0.1) {//0.1 for 51, 0.3 for 442, 0.129 for 105
+			if (random.nextDouble() <= 1) {//0.1 for 51, 0.3 for 442, 0.129 for 105
 				selected.add(compared.get(0));
 				// inds.remove(compared.get(0));
 				compared.clear();

@@ -11,7 +11,7 @@ package ec.master.assignment1.tools;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
 import ec.master.assignment1.city.City;
 import ec.master.assignment1.model.Individual;
@@ -29,7 +29,7 @@ public class Printer {
 		String filePath = url + filename;
 		System.out.println(filePath);
 		File file = new File(filePath);
-		ArrayList<City> cityList = individual.getCityList();
+		List<City> cityList = individual.getCityList();
 		FileWriter writter = null;
 		try {
 			if (file.exists()) {

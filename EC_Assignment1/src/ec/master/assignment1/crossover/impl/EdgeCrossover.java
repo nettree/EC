@@ -33,8 +33,8 @@ public class EdgeCrossover implements Crossover {
 
 	public Children doCrossover(Individual parentA, Individual parentB) {
 		int size = parentA.getSize();
-		ArrayList<City> cityListA = parentA.getCityList();
-		ArrayList<City> cityListB = parentB.getCityList();
+		List<City> cityListA = parentA.getCityList();
+		List<City> cityListB = parentB.getCityList();
 		TSPProblem.log.debug(parentA.toString());
 		TSPProblem.log.debug(parentB.toString());
 		City city;

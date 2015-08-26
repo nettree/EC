@@ -16,6 +16,14 @@ package ec.master.assignment1.model;
  * 
  */
 public class Configuration {
+	public static final String CO_PMX = "pmx";
+	public static final String CO_CYCLE = "cycle";
+	public static final String CO_ORDER = "order";
+	public static final String CO_EDGE = "edge";
+	public static final String MU_INSERT = "insert";
+	public static final String MU_INVERT = "invert";
+	public static final String MU_SWAP = "swap";
+	public static final String MU_SCRAMPLE = "scramble";
 	String fileName;
 	String logType;
 	String mutation;
