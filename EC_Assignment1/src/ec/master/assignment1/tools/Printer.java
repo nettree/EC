@@ -25,6 +25,17 @@ import ec.master.assignment1.model.InputFile;
  * 
  */
 public class Printer {
+	
+	/**
+	 * 
+	* @Title: printResult
+	* @Description: To print out the result in the output file
+	* @param @param inputFile
+	* @param @param individual
+	* @param @param url    
+	* @return void   
+	* @throws
+	 */
 	public static void printResult(InputFile inputFile, Individual individual, String url) {
 		String filename = inputFile.getName()+ ".opt.tour";
 		String filePath = url + filename;

@@ -23,6 +23,15 @@ import ec.master.assignment1.model.Configuration;
  */
 public class FileOperator {
 
+	/**
+	 * 
+	* @Title: readConfiguration
+	* @Description: To read configuration file
+	* @param @param filePath
+	* @param @return    
+	* @return Configuration   
+	* @throws
+	 */
 	public static Configuration readConfiguration(String filePath) {
 		Configuration config = new Configuration();
 		Properties pps = new Properties();
