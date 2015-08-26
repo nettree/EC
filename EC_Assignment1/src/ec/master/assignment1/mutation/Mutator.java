@@ -4,7 +4,7 @@ import ec.master.assignment1.model.Individual;
 
 /**
  * @ClassName: Mutator
- * @Description: To define the interface of mutator for each derived class to inherit
+ * @Description: To define the interface for all mutator to implementations
  * @date 16/08/2015 3:53:00 pm
  * 
  */
