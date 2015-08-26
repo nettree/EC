@@ -23,6 +23,9 @@ import ec.master.assignment1.mutation.Mutator;
  */
 public class SwapMutator implements Mutator {
 
+	/**
+	 * The method implements the swap mutate operation
+	 */
 	public Individual doMutate(Individual individual) {
 		Random random = new Random();
 		

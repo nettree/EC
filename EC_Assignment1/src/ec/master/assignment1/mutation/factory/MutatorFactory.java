@@ -18,12 +18,23 @@ import ec.master.assignment1.mutation.impl.SwapMutator;
 
 /**
  * @ClassName: MutatorFactory
- * @Description: TODO
+ * @Description: The factory of mutator which generates mutator instance
  * @date 16/08/2015 3:46:41 pm
  * 
  */
 public class MutatorFactory {
+	
 	private final String[] mutators = new String[] { "insert", "swap", "inversion", "scramble" };
+	
+	/**
+	 * 
+	* @Title: createMutator
+	* @Description: The method of mutator generation
+	* @param @param type
+	* @param @return    
+	* @return Mutator   
+	* @throws
+	 */
 	public Mutator createMutator(String type) {
 		if (mutators[0].equalsIgnoreCase(type)) {
 			return chooseMutator(0);
@@ -41,6 +52,15 @@ public class MutatorFactory {
 		}
 	}
 	
+	/**
+	 * 
+	* @Title: chooseMutator
+	* @Description: The method which choose the mutator according to type
+	* @param @param type
+	* @param @return    
+	* @return Mutator   
+	* @throws
+	 */
 	private Mutator chooseMutator(int type) {
 		switch(type) {
 		case 0:

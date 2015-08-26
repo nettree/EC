@@ -22,6 +22,9 @@ import ec.master.assignment1.mutation.Mutator;
  */
 public class InversionMutator implements Mutator {
 
+	/**
+	 * The method implements the inversion mutate operation
+	 */
 	public Individual doMutate(Individual individual) {
 		Random random = new Random();
 		// randomly choose two points

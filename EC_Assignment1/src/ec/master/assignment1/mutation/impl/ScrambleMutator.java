@@ -24,6 +24,9 @@ import ec.master.assignment1.mutation.Mutator;
  */
 public class ScrambleMutator implements Mutator {
 
+	/**
+	 * The method implements the scramble mutate operation
+	 */
 	public Individual doMutate(Individual individual) {
 		
 		Random random = new Random();

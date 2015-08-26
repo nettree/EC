@@ -22,6 +22,9 @@ import ec.master.assignment1.mutation.Mutator;
  */
 public class InsertMutator implements Mutator {
 
+	/**
+	 * The method implements the insert mutate operation
+	 */
 	public Individual doMutate(Individual individual) {
 		Random random = new Random();
 		//randomly choose two numbers
