@@ -29,6 +29,7 @@ public class Configuration {
 	String mutation;
 	String crossover;
 	String selection;
+	boolean elite;
 	int popSize;
 	int generationsize;
 	
@@ -73,6 +74,12 @@ public class Configuration {
 	}
 	public void setGenerationsize(int generationsize) {
 		this.generationsize = generationsize;
+	}
+	public boolean getElite() {
+		return elite;
+	}
+	public void setElite(boolean elite) {
+		this.elite = elite;
 	}
 
 }

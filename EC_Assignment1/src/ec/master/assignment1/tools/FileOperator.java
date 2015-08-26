@@ -40,6 +40,8 @@ public class FileOperator {
 			config.setCrossover(crossover);
 			String selection = pps.getProperty("selection");
 			config.setSelection(selection);
+			String elite = pps.getProperty("elite");
+			config.setElite(Boolean.valueOf(elite));
 			String popSize = pps.getProperty("popsize");
 			config.setPopSize(Integer.valueOf(popSize));
 			String generationsize = pps.getProperty("generationsize");

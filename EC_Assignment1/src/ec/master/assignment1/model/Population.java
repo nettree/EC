@@ -26,8 +26,9 @@ public class Population {
 	List<Individual> test = new ArrayList<Individual>();
 	boolean elite = false;
 
-	public Population(List<City> cityList, int popSize, String dataType) {
+	public Population(List<City> cityList, int popSize, String dataType, boolean elite) {
 		this.dataType = dataType;
+		this.elite = elite;
 		for (int i = 0; i < popSize; i++) {
 			Individual individual = new Individual(cityList, true);
 			individuals.add(individual);

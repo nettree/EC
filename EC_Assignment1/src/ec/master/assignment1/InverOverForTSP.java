@@ -27,7 +27,7 @@ public class InverOverForTSP extends TSPProblem{
 	 * main program to do the logic of inver-over algorithm
 	 */
 	public static void operation() {
-		population = new Population(cityList, pps.getPopSize(), inputFile.getEdgeWeightType());
+		population = new Population(cityList, pps.getPopSize(), inputFile.getEdgeWeightType(), pps.getElite());
 		//TODO: add termination condition in future
 		Random random = new Random();
 		while(true) {

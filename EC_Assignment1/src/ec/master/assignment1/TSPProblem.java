@@ -101,7 +101,7 @@ public class TSPProblem {
 	public static void operation() {
 		long startTime = System.nanoTime();
 		int best = -1;
-		population = new Population(cityList, pps.getPopSize(), inputFile.getEdgeWeightType());
+		population = new Population(cityList, pps.getPopSize(), inputFile.getEdgeWeightType(), pps.getElite());
 		for (int i = 0; i < pps.getGenerationsize(); i++) {
 			population.crossover(pps.getCrossover(), 0.75);
 			population.mutate(pps.getMutation(), 0.8);
