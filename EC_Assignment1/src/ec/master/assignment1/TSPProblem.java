@@ -115,12 +115,12 @@ public class TSPProblem {
 			population.select(pps.getSelection(), pps.getPopSize());
 			Individual individual = population.getBest();
 			if (bestIndividual == null) {
-				bestIndividual = individual;
-				log.info(bestIndividual.getFitness());
+				
+				bestIndividual = new Individual(individual.getCityList());
 			} else if (bestIndividual.getFitness() > individual.getFitness()) {
-				bestIndividual = individual;
-				log.info(bestIndividual.getFitness());
+				bestIndividual = new Individual(individual.getCityList());
 			}
+			log.info(bestIndividual.getFitness());
 		}
 		long endTime = System.nanoTime();
 		Date end = new Date();
