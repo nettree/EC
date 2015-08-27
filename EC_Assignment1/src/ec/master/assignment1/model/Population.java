@@ -28,6 +28,8 @@ public class Population {
 	Individual lastBest = null;
 	boolean elite = false;
 	boolean selected = false;
+	private int average;
+	private double standardDeviation;
 
 	public Population(List<City> cityList, int popSize, String dataType, boolean elite) {
 		this.dataType = dataType;
@@ -166,5 +168,23 @@ public class Population {
 	
 	public void setIndividuals(List<Individual> individuals) {
 		this.individuals = individuals;
+	}
+	
+	public int getAverage() {
+		int fitness = 0;
+		for (Individual individual : individuals) {
+			fitness += individual.getFitness();
+		}
+		average = fitness / individuals.size();
+		return average;
+	}
+	
+	public double getStandardDeviation() {
+		double result = 0;
+		for (int i = 0; i < individuals.size(); i++) {
+			result += Math.pow((individuals.get(i).getFitness() - average), 2);
+		}
+		standardDeviation = Math.sqrt(result / (individuals.size() - 1));
+		return standardDeviation;
 	}
 }

@@ -1,4 +1,5 @@
 package ec.master.assignment1.algorithms;
+
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -117,7 +118,12 @@ public class TSPProblem {
 		
 		long startTime = System.nanoTime();
 		population = new Population(cityList, pps.getPopSize(), inputFile.getEdgeWeightType(), pps.getElite());
+		Printer printer = Printer.getInstance();
+		printer.buildFile(inputFile, pps, OUTPUT_PATH);
 		for (int i = 0; i < pps.getGenerationsize(); i++) {
+			if ((i + 1) % 5000 == 0) {
+				log.info("Generation: " + (i + 1));
+			}
 			population.crossover(pps.getCrossover(), 0.75);
 			population.mutate(pps.getMutation(), 0.2);
 			
@@ -130,6 +136,7 @@ public class TSPProblem {
 				bestIndividual = new Individual(individual.getCityList());
 				log.info(bestIndividual.getFitness());
 			}
+			printer.print(inputFile, population, bestIndividual, i);
 		}
 		long endTime = System.nanoTime();
 		Date end = new Date();
@@ -150,4 +157,5 @@ public class TSPProblem {
 	public static void printResult() {
 		Printer.printResult(inputFile, bestIndividual, OUTPUT_PATH);
 	}
+	
 }
