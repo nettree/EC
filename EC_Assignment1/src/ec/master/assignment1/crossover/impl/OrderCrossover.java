@@ -16,6 +16,11 @@ import ec.master.assignment1.model.Individual;
  */
 public class OrderCrossover implements Crossover{
 	
+	/**
+	 * The method is for order crossover
+	 * @return children (child1, child2) 
+	 */
+	
 	public Children doCrossover(Individual fParent, Individual sParent){
 		Random random = new Random();
 		int a = random.nextInt(fParent.getSize());
@@ -37,17 +42,21 @@ public class OrderCrossover implements Crossover{
 		int fIndex = (max+1)%fParent.getSize();
 		int sIndex = (max+1)%sParent.getSize();
 		for(int i=max+1;i<sParent.getSize()+min;i++){
+			//find the city in the first child
 			while(fChild.contains(sParent.getCityList().get(sIndex))){
 				sIndex=(sIndex+1)%fParent.getSize();
 			}
+			//find the city in the second child
 			while(sChild.contains(fParent.getCityList().get(fIndex))){
 				fIndex=(fIndex+1)%fParent.getSize();
 			}
 			
 			if(i<sParent.getSize()){
+				//index is in the later segment
 				fChild.add(sParent.getCityList().get(sIndex));
 				sChild.add(fParent.getCityList().get(fIndex));
 			}else{
+				//index is in the former segment
 				fChild.add(i%sParent.getSize(),sParent.getCityList().get(sIndex));
 				sChild.add(i%sParent.getSize(),fParent.getCityList().get(fIndex));
 			}

@@ -7,8 +7,18 @@ import java.util.Random;
 import ec.master.assignment1.model.Individual;
 import ec.master.assignment1.selection.Selector;
 
+/**
+ * @ClassName: FPSelection
+ * @Description: implementation of fitness proportional selection
+ * @date 17/08/2015 11:15:33 pm
+ *
+ */
 public class FPSelection implements Selector {
 	
+	/**
+	 * The method is do fitness proportional selection
+	 * @return selected list
+	 */
 	public List<Individual> doSelection(List<Individual> individuals, int groupSize, int resultSize) {
 		Collections.shuffle(individuals);
 		ArrayList<Individual> selectedIndividuals = new ArrayList<Individual>(resultSize);

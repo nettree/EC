@@ -33,13 +33,13 @@ public class InversionMutator implements Mutator {
 		if (a == b) {
 			b++;
 		}
+		
 		int max = Math.max(a, b);
 		int min = Math.min(a, b);
-//		int compare = ((max + min) + 1) / 2;
 		int compare = (max - min) / 2;
+		//swap the individuals 
 		for (int i = 0; i < compare; i++) {
 			Collections.swap(individual.getCityList(), min++, max--);
-//			max--;
 		}
 		return individual;
 	}

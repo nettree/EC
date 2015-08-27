@@ -29,12 +29,13 @@ public class SwapMutator implements Mutator {
 	public Individual doMutate(Individual individual) {
 		Random random = new Random();
 		
-		
+		//randomly choose two points
 		int min = random.nextInt(individual.getSize());
 		int max = random.nextInt(individual.getSize()-1);
 		if(max==min){
 			max++;
 		}
+		//swap these individuals  
 		Collections.swap(individual.getCityList(), max, min);
 		return individual;
 	}
