@@ -41,31 +41,27 @@ public class InverOverForTSP extends TSPProblem {
 				Individual originalIndividual = population.getIndividuals().get(sindex);
 				originalIndividual.updateFitness();
 				Individual copyOfIndividual = new Individual(new ArrayList<City>(originalIndividual.getCityList()), false);
+				
 				// randomly select a city c from cityList of copied individual
-				//int city1Index = random.nextInt(copyOfIndividual.getCityList().size());
-				int city1Index = (int) (Math.random() * copyOfIndividual.getCityList().size());
+				int city1Index = random.nextInt(copyOfIndividual.getCityList().size());
 				City city1 = copyOfIndividual.getCityList().get(city1Index);
 				City city2 = null;
 				int city2Index = -1;
+				
 				// repeat while loop
 				while (true) {
+					
 					// if rand() <= p, select the city2 from remaining cities in copied individual
 					if (random.nextDouble() <= probability) {
-					//if (random.nextDouble() <= probability) {
-						// then remove this city from cityList
-						// List<City> copyList = new ArrayList(copyOfIndividual.getCityList());
-						// copyList.remove(city1);
-						
-						//city2Index = random.nextInt(copyOfIndividual.getCityList().size());
-						city2Index = (int) (Math.random() * copyOfIndividual.getCityList().size());
+						city2Index = random.nextInt(copyOfIndividual.getCityList().size());
 						while(city2Index == city1Index) {
-							//city2Index = random.nextInt(copyOfIndividual.getCityList().size());
-							city2Index = (int) (Math.random() * copyOfIndividual.getCityList().size());
+							city2Index = random.nextInt(copyOfIndividual.getCityList().size());
 						}
 						city2 = copyOfIndividual.getCityList().get(city2Index);
 					} else {
 						// select randomly an individual from population
 						Individual selectedIndividual = population.getIndividuals().get(random.nextInt(population.getIndividuals().size()));
+						
 						// get the next city to city1 in i and assign this city to city2
 						List<City> selectedCityList = selectedIndividual.getCityList();
 						for (int index = 0; index < selectedCityList.size(); index++) {
@@ -85,6 +81,7 @@ public class InverOverForTSP extends TSPProblem {
 							}
 						}
 					}
+					
 					// if the next city or the previous city of city1
 					// in copyOfIndividual is city2, exit repeat while loop
 					City previousCity = getPreviousCity(copyOfIndividual, city1);
@@ -92,31 +89,64 @@ public class InverOverForTSP extends TSPProblem {
 					if (city2.getId() == previousCity.getId() || city2.getId() == nextCity.getId()) {
 						break;
 					}
-					// inverse the section from the next city of city1 to the
-					// city2 in copyOfIndividual
-					// int midIndex = ((NEXT_CITY_INDEX + city2Index) + 1) / 2;
-					int startIndex = NEXT_CITY_INDEX;
-					int endIndex = city2Index;
+					
+					// start index should be lower than endIndex
+					int startIndex = NEXT_CITY_INDEX < city2Index ? NEXT_CITY_INDEX : city2Index;
+					int endIndex = NEXT_CITY_INDEX < city2Index ? city2Index : NEXT_CITY_INDEX;
+					
+					// if index of next city is greater than that of city2, then the section from
+					// next city index to the end of list to start of list to index of city2 need to
+					// be inversed
+					List<City> subList = new ArrayList<City>();
+					List<City> copiedCityList = new ArrayList<City> (copyOfIndividual.getCityList());
+					
 					if (NEXT_CITY_INDEX > city2Index) {
-						startIndex = city2Index;
-						endIndex = NEXT_CITY_INDEX;
+						
+						// reverse the section from startIndex(exclusive) to endIndex(exclusive)
+						for(int index = startIndex + 1; index < endIndex; index ++) {
+							subList.add(copiedCityList.get(index));
+						}
+						Collections.reverse(subList);
+						
+						// and then set this reversed sublist to the copied individual
+						int subIndex = 0;
+						for(int index = startIndex + 1; index < endIndex; index ++) {
+							copiedCityList.set(index, subList.get(subIndex));
+							subIndex ++;
+						}
+						
+						// and reverse the whole list then rotate to the expected city sequence
+						Collections.reverse(copiedCityList);
+						int currentNextCityIndex = 0;
+						for(int index = 0; index < copiedCityList.size(); index ++) {
+							if(copiedCityList.get(index).getId() == nextCity.getId()) {
+								currentNextCityIndex = index;
+							}
+						}
+						// the rotate distance depends on the start or end element's offset
+						// compared with the original end or start element, in this if branch,
+						// as the nextCity's index is greater than city2's index, so the index of
+						// next city is actually the start index, so we need to find the nextCity's
+						// index in current reversed list, and calculate the offset to start index
+						Collections.rotate(copiedCityList, startIndex - currentNextCityIndex);
+						
+						// set this list to copied individual
+						copyOfIndividual.setCityList(copiedCityList);
+					} else { 
+						// normal situation, reverse the section from startIndex(inclusive) to endIndex(inclusive)
+						// and then set this reversed sublist to the copied individual
+						for (int index = startIndex; index <= endIndex; index ++) {
+							subList.add(copiedCityList.get(index));
+						}
+						Collections.reverse(subList);
+						
+						// replace the section of copied individual
+						int subIndex = 0;
+						for(int index = startIndex; index <= endIndex; index ++) {
+							copyOfIndividual.getCityList().set(index, subList.get(subIndex));
+							subIndex ++;
+						}
 					}
-					List<City> subList = new ArrayList<City>(copyOfIndividual.getCityList()).subList(startIndex, endIndex);
-					Collections.reverse(subList);
-					int subIndex = 0;
-					List<City> allCities = copyOfIndividual.getCityList();
-					for(int index = startIndex; index < endIndex; index ++) {
-						allCities.set(index, subList.get(subIndex));
-						subIndex ++;
-					}
-					copyOfIndividual.setCityList(allCities);
-//					for (int index = startIndex; index < midIndex; index++) {
-//						Collections.swap(copyOfIndividual.getCityList(), index, endIndex);
-//						endIndex--;
-//					}
-
-					// Collections.swap(copyOfIndividual.getCityList(),
-					// nextCityIndex, city2Index);
 					city1 = city2;
 				}
 				// recalculate the tour cost
@@ -128,10 +158,6 @@ public class InverOverForTSP extends TSPProblem {
 				}
 			}
 
-			//System.out.println(fList.get(0).getFitness());
-//			for(City city : fList.get(0).getCityList()) {
-//				System.out.println(city);
-//			}
 			if(generationSize == 5000) {
 				System.out.println("Generation 5000!!!!!!!!!!!!!!");
 				System.out.println("Generation 5000!!!!!!!!!!!!!!");
