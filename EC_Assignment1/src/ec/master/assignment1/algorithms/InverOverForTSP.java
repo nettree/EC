@@ -8,6 +8,7 @@ import java.util.Random;
 import ec.master.assignment1.city.City;
 import ec.master.assignment1.model.Individual;
 import ec.master.assignment1.model.Population;
+import ec.master.assignment1.tools.Printer;
 
 /**
  * 
@@ -31,6 +32,11 @@ public class InverOverForTSP extends TSPProblem {
 	public static void operation() {
 		// random initialization of the population
 		population = new Population(cityList, pps.getPopSize(), inputFile.getEdgeWeightType(), pps.getElite());
+		
+		// define the printer and fileName
+		Printer printer = Printer.getInstance();
+		String fileName = pps.getFileName() + "_Inver_Over_50_10000";
+		printer.buildFile(inputFile, pps, OUTPUT_PATH, fileName);
 		Random random = new Random();
 		Double probability = 0.1d;
 		int generationSize = 1;
@@ -157,79 +163,20 @@ public class InverOverForTSP extends TSPProblem {
 					population.getIndividuals().set(sindex, copyOfIndividual);
 				}
 			}
-
-			if(generationSize == 5000) {
-				System.out.println("Generation 5000!!!!!!!!!!!!!!");
-				System.out.println("Generation 5000!!!!!!!!!!!!!!");
-				System.out.println("Generation 5000!!!!!!!!!!!!!!");
-				System.out.println("Generation 5000!!!!!!!!!!!!!!");
-				System.out.println("Generation 5000!!!!!!!!!!!!!!");
-				System.out.println("Generation 5000!!!!!!!!!!!!!!");
-				System.out.println("Generation 5000!!!!!!!!!!!!!!");
-				System.out.println("Generation 5000!!!!!!!!!!!!!!");
-				System.out.println("Generation 5000!!!!!!!!!!!!!!");
-				System.out.println("Generation 5000!!!!!!!!!!!!!!");
-				System.out.println("Generation 5000!!!!!!!!!!!!!!");
-				System.out.println("Generation 5000!!!!!!!!!!!!!!");
-				System.out.println("Generation 5000!!!!!!!!!!!!!!");
-				// print out the result after each generation
-				List<Individual> fList = new ArrayList<Individual>();
-				for (Individual indi : population.getIndividuals()) {
-					indi.updateFitness();
-					fList.add(indi);
-				}
-				Collections.sort(fList);
-				System.out.println("Best is:" + fList.get(0));
-			} else if(generationSize == 10000) {
-				System.out.println("Generation 10000!!!!!!!!!!!!");
-				System.out.println("Generation 10000!!!!!!!!!!!!");
-				System.out.println("Generation 10000!!!!!!!!!!!!");
-				System.out.println("Generation 10000!!!!!!!!!!!!");
-				System.out.println("Generation 10000!!!!!!!!!!!!");
-				System.out.println("Generation 10000!!!!!!!!!!!!");
-				System.out.println("Generation 10000!!!!!!!!!!!!");
-				System.out.println("Generation 10000!!!!!!!!!!!!");
-				System.out.println("Generation 10000!!!!!!!!!!!!");
-				System.out.println("Generation 10000!!!!!!!!!!!!");
-				System.out.println("Generation 10000!!!!!!!!!!!!");
-				// print out the result after each generation
-				List<Individual> fList = new ArrayList<Individual>();
-				for (Individual indi : population.getIndividuals()) {
-					indi.updateFitness();
-					fList.add(indi);
-				}
-				Collections.sort(fList);
-				System.out.println("Best is:" + fList.get(0));
-			} else if(generationSize == 20000) {
-				System.out.println("Generation 20000!!!!!!!!!!!!!");
-				System.out.println("Generation 20000!!!!!!!!!!!!!");
-				System.out.println("Generation 20000!!!!!!!!!!!!!");
-				System.out.println("Generation 20000!!!!!!!!!!!!!");
-				System.out.println("Generation 20000!!!!!!!!!!!!!");
-				System.out.println("Generation 20000!!!!!!!!!!!!!");
-				System.out.println("Generation 20000!!!!!!!!!!!!!");
-				System.out.println("Generation 20000!!!!!!!!!!!!!");
-				System.out.println("Generation 20000!!!!!!!!!!!!!");
-				System.out.println("Generation 20000!!!!!!!!!!!!!");
-				System.out.println("Generation 20000!!!!!!!!!!!!!");
-				System.out.println("Generation 20000!!!!!!!!!!!!!");
-				System.out.println("Generation 20000!!!!!!!!!!!!!");
-				System.out.println("Generation 20000!!!!!!!!!!!!!");
-				// print out the result after each generation
-				List<Individual> fList = new ArrayList<Individual>();
-				for (Individual indi : population.getIndividuals()) {
-					indi.updateFitness();
-					fList.add(indi);
-				}
-				Collections.sort(fList);
-				System.out.println("Best is:" + fList.get(0));
+			
+			// print out the result after each generation
+			List<Individual> fList = new ArrayList<Individual>();
+			for (Individual indi : population.getIndividuals()) {
+				indi.updateFitness();
+				fList.add(indi);
 			}
+			Collections.sort(fList);
+			// print result to file
+			printer.print(inputFile, population, fList.get(0), generationSize, fileName);
+			
 			// at the end of each loop, add generation size
 			generationSize ++;
 		}
-		List<Individual> indi = population.getIndividuals();
-		Collections.sort(indi);
-		System.out.println("Best is:" + indi.get(0));
 	}
 
 	/**
