@@ -50,7 +50,7 @@ public class TSPProblem {
 			System.exit(0);
 		}
 		operation();
-		printResult();
+//		printResult();
 	}
 	
 	/**
