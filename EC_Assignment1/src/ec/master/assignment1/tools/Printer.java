@@ -29,9 +29,11 @@ import ec.master.assignment1.model.Population;
 public class Printer {
 
 	private static Printer printer = null;
+	private FileWriter writter = null;
 	private FileWriter writter5000 = null;
 	private FileWriter writter10000 = null;
 	private FileWriter writter20000 = null;
+	private StringBuffer sb = null;
 	private StringBuffer sb5000 = null;
 	private StringBuffer sb10000 = null;
 	private StringBuffer sb20000 = null;
@@ -56,8 +58,58 @@ public class Printer {
 		} else if (size == 5000) {
 			build5000(inputFile, config, url);
 		}
-
 	}
+	
+	public void buildFile(InputFile inputFile, Configuration config, String url, String filename) {
+		try {
+			String filePath = url + filename + ".opt.tour";
+			File file = new File(filePath);
+			if (file.exists()) {
+				file.delete();
+			}
+			file.createNewFile();
+			sb = new StringBuffer();
+			writter = new FileWriter(file);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
+	public void print(InputFile inputFile, Population population, Individual individual, int index, String filename) {
+		if (index < 10000) {
+			sb.append("GENERATION" +index + ": " + "Average Cost: " + population.getAverage() + " Standard Deviation: " + population.getStandardDeviation() + " Best Fitness: " + individual.getFitness() + "\n");
+		} else if(index == 10000) {
+			try {
+				writter.write("NAME : " + filename + "\n");
+				writter.write("COMMENT : Optimal tour for " + inputFile.getName() + "  (" + individual.getFitness() + ")\n");
+				writter.write("TYPE : TOUR\n");
+				writter.write("DIMENSION : " + inputFile.getDimension() + "\n");
+				writter.write("GENERATION:\n");
+				writter.write(sb.toString());
+				writter.write("\nTOUR_SECTION\n");
+				List<City> cityList = individual.getCityList();
+				for (City city : cityList) {
+					writter.write(city.getId() + "\n");
+				}
+				writter.write("EOF\n");
+				writter.flush();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				if (writter != null) {
+					try {
+						writter.close();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		}
+	}
+	
 	
 	private void build5000(InputFile inputFile, Configuration config, String url) {
 		try {

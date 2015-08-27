@@ -151,6 +151,9 @@ public class Population {
 		int best = -1;
 		Individual bestIndividual = null;
 		for (Individual individual : individuals) {
+			if (individual == null) {
+				break;
+			}
 			if (best == -1) {
 				best = individual.getFitness();
 				bestIndividual = individual;
@@ -173,6 +176,8 @@ public class Population {
 	public int getAverage() {
 		int fitness = 0;
 		for (Individual individual : individuals) {
+			if (individual == null)
+				break;
 			fitness += individual.getFitness();
 		}
 		average = fitness / individuals.size();
@@ -182,6 +187,8 @@ public class Population {
 	public double getStandardDeviation() {
 		double result = 0;
 		for (int i = 0; i < individuals.size(); i++) {
+			if (individuals.get(i) == null)
+				break;
 			result += Math.pow((individuals.get(i).getFitness() - average), 2);
 		}
 		standardDeviation = Math.sqrt(result / (individuals.size() - 1));
