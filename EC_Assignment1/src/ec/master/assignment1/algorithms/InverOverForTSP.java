@@ -1,4 +1,4 @@
-package ec.master.assignment1;
+package ec.master.assignment1.algorithms;
 
 import java.util.ArrayList;
 import java.util.Collections;

@@ -17,7 +17,7 @@ import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
-import ec.master.assignment1.TSPProblem;
+import ec.master.assignment1.algorithms.TSPProblem;
 import ec.master.assignment1.city.City;
 import ec.master.assignment1.crossover.Crossover;
 import ec.master.assignment1.model.Children;

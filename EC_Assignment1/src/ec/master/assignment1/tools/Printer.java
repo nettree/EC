@@ -13,7 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
 
-import ec.master.assignment1.TSPProblem;
+import ec.master.assignment1.algorithms.TSPProblem;
 import ec.master.assignment1.city.City;
 import ec.master.assignment1.model.Individual;
 import ec.master.assignment1.model.InputFile;

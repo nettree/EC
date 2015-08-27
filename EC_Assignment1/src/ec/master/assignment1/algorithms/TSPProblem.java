@@ -1,4 +1,4 @@
-package ec.master.assignment1;
+package ec.master.assignment1.algorithms;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

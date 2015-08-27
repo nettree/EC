@@ -3,7 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import ec.master.assignment1.TSPProblem;
+import ec.master.assignment1.algorithms.TSPProblem;
 import ec.master.assignment1.city.City;
 import ec.master.assignment1.crossover.Crossover;
 import ec.master.assignment1.crossover.factory.CrossoverFactory;

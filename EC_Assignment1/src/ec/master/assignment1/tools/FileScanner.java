@@ -6,7 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import ec.master.assignment1.TSPProblem;
+import ec.master.assignment1.algorithms.TSPProblem;
 import ec.master.assignment1.city.City;
 import ec.master.assignment1.city.factory.CityFactory;
 import ec.master.assignment1.model.InputFile;
